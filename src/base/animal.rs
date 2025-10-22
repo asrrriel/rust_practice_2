@@ -1,7 +1,7 @@
 use super::gender::*;
 use std::fmt::Display;
 
-#[derive(Eq, Hash, PartialEq, Clone)]
+#[derive(Eq, Hash, PartialEq, Clone, Debug)]
 pub enum Species {
     Cat,
     Cattle,
@@ -23,31 +23,6 @@ pub enum Species {
     Zebra,
 }
 
-impl Display for Species{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f,"{0}", match self {
-            Self::Cat      => "Cat",
-            Self::Cattle   => "Cattle",
-            Self::Dog      => "Dog",
-            Self::Dragon   => "Dragon",
-            Self::Elephant => "Elephant",
-            Self::Fox      => "Fox",
-            Self::Goat     => "Goat",
-            Self::Human    => "Human",
-            Self::Jay      => "Jay",
-            Self::Lion     => "Lion",
-            Self::Lizard   => "Lizard",
-            Self::Ox       => "Ox",
-            Self::Pig      => "Pig",
-            Self::Shark    => "Shark",
-            Self::Sheep    => "Sheep",
-            Self::Sparrow  => "Sparrow",
-            Self::Wolf     => "Wolf",
-            Self::Zebra    => "Zebra",
-        })
-    }
-}
-
 pub struct Animal<'a> {
     pub species: Species,
     pub age: u64,
@@ -60,7 +35,7 @@ pub struct Animal<'a> {
 impl Animal<'_> {
     pub fn describe(&self) {
         print!(r##"==={name}===
-Species:  {species}
+Species:  {species:?}
 Age:      {age}
 Sex:      {sex}
 Gender(s):
