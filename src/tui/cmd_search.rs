@@ -1,6 +1,6 @@
-use crate::base::{entity::Enitiy, gender::Sex};
+use crate::base::{entity::Entity, gender::Sex};
 
-pub fn cmd_search(entities: &Vec<Enitiy>, args: &Vec<&str>) {
+pub fn cmd_search(entities: &Vec<Entity>, args: &Vec<&str>) {
     if args.len() < 2 {
         println!("Usage: {0} name|age|sex|gender|position",args[0]);
         return;
