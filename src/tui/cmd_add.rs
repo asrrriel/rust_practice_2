@@ -1,3 +1,5 @@
+use strum::IntoEnumIterator;
+
 use crate::base::gender::*;
 use crate::base::entity::*;
 use super::primitives::*;
@@ -12,29 +14,13 @@ enum GenderHelper<'a>{
 pub fn cmd_add(entities: &mut Vec<Enitiy>) {
     let mut species_hm = HashMap::<String,Species>::new();
 
-    species_hm.insert("cat".to_string()      ,Species::Cat);
-    species_hm.insert("cattle".to_string()   ,Species::Cattle);
-    species_hm.insert("dog".to_string()      ,Species::Dog);
-    species_hm.insert("dragon".to_string()   ,Species::Dragon);
-    species_hm.insert("elephant".to_string() ,Species::Elephant);
-    species_hm.insert("fox".to_string()      ,Species::Fox);
-    species_hm.insert("goat".to_string()     ,Species::Goat);
-    species_hm.insert("human".to_string()    ,Species::Human);
-    species_hm.insert("jay".to_string()      ,Species::Jay);
-    species_hm.insert("lion".to_string()     ,Species::Lion);
-    species_hm.insert("lizard".to_string()   ,Species::Lizard);
-    species_hm.insert("ox".to_string()       ,Species::Ox);
-    species_hm.insert("pig".to_string()      ,Species::Pig);
-    species_hm.insert("shark".to_string()    ,Species::Shark);
-    species_hm.insert("sheep".to_string()    ,Species::Sheep);
-    species_hm.insert("sparrow".to_string()  ,Species::Sparrow);
-    species_hm.insert("wolf".to_string()     ,Species::Wolf);
-    species_hm.insert("zebra".to_string()    ,Species::Zebra);
-
+    for s in Species::iter() {
+        species_hm.insert(s.to_string().to_ascii_lowercase(),s);
+    }
 
     let species = input_one_of(&mut species_hm,&"Species[help to list]: ".to_string());
 
-    let age; 
+    let age;
     loop {
         match input_int(&"Age[whole number]: ".to_string()) {
             Ok(v) => {
@@ -62,7 +48,7 @@ pub fn cmd_add(entities: &mut Vec<Enitiy>) {
     sex_hm.insert("female".to_string(), Sex::Female);
     sex_hm.insert("intersex".to_string(), Sex::Intersex);
 
-    let sex = input_one_of(&mut sex_hm, &"Sex(BIOLOGICAL gender)[male/female/intersex]: ".to_string());
+    let sex = input_one_of(&mut sex_hm, &"Sex(BIOLOGICAL gender)[help to list]: ".to_string());
 
     let mut gender_hm= HashMap::<String,GenderHelper>::new();
 
@@ -73,7 +59,7 @@ pub fn cmd_add(entities: &mut Vec<Enitiy>) {
 
     let mut genders: Vec<Gender> = Vec::new();
 
-    genders.push(match input_one_of(&mut gender_hm, &"Gender[male/female/non-binary/custom]: ".to_string()) {
+    genders.push(match input_one_of(&mut gender_hm, &"Gender[help to list]: ".to_string()) {
         GenderHelper::A(g) => g,
         GenderHelper::Custom => {
             match input_gender() {
@@ -85,7 +71,7 @@ pub fn cmd_add(entities: &mut Vec<Enitiy>) {
             }
         } 
         GenderHelper::Enough => {
-            panic!("Impossible code path triggered");
+            panic!("Impossible code path");
         }
     });
 

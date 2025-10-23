@@ -1,6 +1,7 @@
 use crate::util::flexistring::Flexistring;
-use core::fmt::Display;
+use strum_macros::{Display,EnumIter};
 
+#[derive(Display,EnumIter)]
 pub enum Sex {
     Male,
     Female,
@@ -18,35 +19,25 @@ pub struct Gender<'a> {
 }
 
 pub const G_MALE: Gender = Gender{
-    gender_name: Flexistring::Static("male"),
+    gender_name: Flexistring::Static("Male"),
     subj_pronoun: Flexistring::Static("he"),
     obj_pronoun: Flexistring::Static("him"),
     pluralized: false
 };
 
 pub const G_FEMALE: Gender = Gender{
-    gender_name: Flexistring::Static("female"),
+    gender_name: Flexistring::Static("Female"),
     subj_pronoun: Flexistring::Static("she"),
     obj_pronoun: Flexistring::Static("her"),
     pluralized: false
 };
 
 pub const G_NON_BINARY: Gender = Gender{
-    gender_name: Flexistring::Static("non-binary"),
+    gender_name: Flexistring::Static("Non-binary"),
     subj_pronoun: Flexistring::Static("they"),
     obj_pronoun: Flexistring::Static("them"),
     pluralized: true
 };
-
-impl Display for Sex {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f,"{}", match self {
-            Self::Male => "male",
-            Self::Female => "female",
-            Self::Intersex => "intersex"
-        })
-    }
-}
 
 pub enum PronounType {
     Subject,
