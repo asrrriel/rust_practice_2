@@ -1,4 +1,5 @@
 use super::gender::*;
+use strum::IntoEnumIterator;
 use strum_macros::{Display,EnumIter};
 
 #[derive(Eq, Hash, PartialEq, Clone, Display, EnumIter)]
@@ -21,6 +22,18 @@ pub enum Species {
     Sparrow,
     Wolf,
     Zebra,
+}
+
+impl<'a> Species {
+    pub fn from_string(value: String) -> Option<Self> {
+        for s in Species::iter() {
+            if s.to_string().to_ascii_lowercase() == value.to_ascii_lowercase(){
+                return Some(s);
+            }
+        }
+
+        return None;
+    }
 }
 
 pub struct Animal<'a> {

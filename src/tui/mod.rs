@@ -41,7 +41,6 @@ pub fn cli(mut animals: Vec<Animal>) {
             "help"  => cmd_help(),
             "list"  => cmd_list(&animals),
             _   => println!("Nonexistent command \"{0}\", type \"help\" for a list of commands",cmd.trim())
-
         }
     }
 }
