@@ -1,7 +1,7 @@
 use super::gender::*;
-use strum_macros::Display;
+use strum_macros::{Display,EnumIter};
 
-#[derive(Eq, Hash, PartialEq, Clone, Display)]
+#[derive(Eq, Hash, PartialEq, Clone, Display, EnumIter)]
 pub enum Species {
     Cat,
     Cattle,
