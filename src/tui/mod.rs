@@ -9,11 +9,13 @@ mod file_cmds;
 mod cmd_add;
 mod cmd_count;
 mod cmd_search;
+mod cmd_edit;
 use small_cmds::*;
 use file_cmds::*;
 use cmd_add::*;
 use cmd_count::*;
 use cmd_search::*;
+use cmd_edit::*;
 
 fn cmd_help() {
     println!("Available commands:");
@@ -21,6 +23,7 @@ fn cmd_help() {
     println!("   -add:    adds an entry to the catalog");
     println!("   -clear:  clears the screen");
     println!("   -count:  counts all entries");
+    println!("   -edit:   edits an entity");
     println!("   -exit:   quits rp2");
     println!("   -help:   prints this :)");
     println!("   -list:   prints all entries");
@@ -28,7 +31,6 @@ fn cmd_help() {
     println!("   -search: searches the catalog");
     println!("   -print:  prints a specific entity");
     println!("   -write:  saves the catalog");
-    
 }
 
 pub fn cli(entities: &mut Vec<Entity>) {
@@ -49,6 +51,7 @@ pub fn cli(entities: &mut Vec<Entity>) {
             "add"   => cmd_add(entities),
             "clear" => Ok(cmd_clear()),
             "count" => Ok(cmd_count(&entities, &args)),
+            "edit"  => cmd_edit(entities,&args),
             "exit"  => break,
             "help"  => Ok(cmd_help()),
             "list"  => Ok(cmd_list(&entities)),

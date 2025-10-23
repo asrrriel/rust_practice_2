@@ -144,7 +144,6 @@ pub fn deserialize_database<'a>(data: &mut Vec<u8>) -> Result<Vec<Entity<'a>>,Bo
         ent.position.1 = f32::from_le_bytes(data[cur_byte..cur_byte+4].try_into()?);
         cur_byte += 4;
 
-
         if cur_byte != old_cur + ent_size as usize {
             return Result::Err(Box::new(io::Error::new(io::ErrorKind::InvalidData,"Incorrect entity size")));
         }
