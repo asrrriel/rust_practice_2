@@ -45,18 +45,23 @@ pub fn cli(mut entities: Vec<Enitiy>) {
 
         let args: Vec<&str> = cmd.split(' ').collect();
 
-        match args[0] {
+        let result =match args[0] {
             "add"   => cmd_add(&mut entities),
-            "clear" => cmd_clear(),
-            "count" => cmd_count(&entities, &args),
+            "clear" => Ok(cmd_clear()),
+            "count" => Ok(cmd_count(&entities, &args)),
             "exit"  => break,
-            "help"  => cmd_help(),
-            "list"  => cmd_list(&entities),
-            "load"  => cmd_load(&entities, &args, &mut prompt),
-            "search"=> cmd_search(&entities, &args),
+            "help"  => Ok(cmd_help()),
+            "list"  => Ok(cmd_list(&entities)),
+            "load"  => Ok(cmd_load(&entities, &args, &mut prompt)),
+            "search"=> Ok(cmd_search(&entities, &args)),
             "print" => cmd_print(&entities, &args),
-            "write" => cmd_write(&entities, &args, &mut prompt),
-            _       => println!("Nonexistent command \"{0}\", type \"help\" for a list of commands",cmd.trim())
+            "write" => Ok(cmd_write(&entities, &args, &mut prompt)),
+            _       => Ok(println!("Nonexistent command \"{0}\", type \"help\" for a list of commands",cmd.trim()))
+        };
+
+        match result {
+            Err(e) => println!("Command failed with error: {e}"),
+            _ => {}
         }
     }
 }

@@ -6,23 +6,19 @@ pub fn cmd_list(entities: &Vec<Enitiy>) {
     }
 }
 
-pub fn cmd_print(entities: &Vec<Enitiy>, args: &Vec<&str>) {
+pub fn cmd_print(entities: &Vec<Enitiy>, args: &Vec<&str>) -> Result<(),Box<dyn std::error::Error>>{
     if args.len() < 2 {
         println!("Usage: {0} <ID>",args[0]);
     } else{
-        let id: usize = match args[1].to_string().parse() {
-            Ok(v) => v,
-            Err(e) => {
-                println!("Failed to parse the ID: {e}");
-                return;
-            }
-        };
+        let id: usize = args[1].to_string().parse()?;
 
         match entities.get(id){
             Some(v) => v.describe(Some(id)),
             None => println!("Enity with ID {id} not found.")
         }
     }
+
+    return Ok(())
 }
 
 

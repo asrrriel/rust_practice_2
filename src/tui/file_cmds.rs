@@ -1,7 +1,7 @@
 use crate::base::entity::Enitiy;
 
 
-pub fn cmd_load(entities: &Vec<Enitiy>, args: &Vec<&str>, prompt: &mut String) {
+pub fn cmd_load(_entities: &Vec<Enitiy>, args: &Vec<&str>, prompt: &mut String) {
     if args.len() < 2 {
         println!("Usage: {0} <file name>",args[0])
     }
@@ -13,10 +13,10 @@ pub fn cmd_load(entities: &Vec<Enitiy>, args: &Vec<&str>, prompt: &mut String) {
     println!("Load is unimplemented, it only changes the prompt!");
 }
 
-pub fn cmd_write(entities: &Vec<Enitiy>, args: &Vec<&str>, prompt: &mut String) {
+pub fn cmd_write(_entities: &Vec<Enitiy>, args: &Vec<&str>, _prompt: &mut String) {
     if args.len() < 2 {
         println!("Usage: {0} <file name>",args[0])
     }
-    
+
     println!("Write is unimplemented!");
 }
