@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::io::*;
 use crate::base::gender::Gender;
 
@@ -25,7 +25,7 @@ pub fn input_int(prompt: &String) -> Result<i32> {
     }
 }
 
-pub fn input_one_of<T>(hm: &mut HashMap<String,T>,prompt: &String) -> T {
+pub fn input_one_of<T>(hm: &mut BTreeMap<String,T>,prompt: &String) -> T {
     loop {
         let str = match input_string(&prompt) {
             Ok(s) => s,
@@ -72,12 +72,12 @@ pub fn input_gender<'a>() -> Result<Gender<'a>> {
         }
     };
 
-    let mut hm = HashMap::<String,bool>::new();
+    let mut m = BTreeMap::<String,bool>::new();
 
-    hm.insert("yes".to_string(),true);
-    hm.insert("No".to_string(),false);
+    m.insert("yes".to_string(),true);
+    m.insert("No".to_string(),false);
 
-    let pluralized = input_one_of(&mut hm,&"Pluralizing(like themselves instead of themself)[yes/no]? ".to_string());
+    let pluralized = input_one_of(&mut m,&"Pluralizing(like themselves instead of themself)[yes/no]? ".to_string());
 
     Result::Ok(Gender {
             gender_name: gender_name.into(),
