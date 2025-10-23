@@ -1,12 +1,12 @@
 use crate::base::entity::*;
 
-pub fn cmd_list(entities: &Vec<Enitiy>) {
+pub fn cmd_list(entities: &Vec<Entity>) {
     for (i,e) in entities.iter().enumerate() {
         e.describe(Some(i));
     }
 }
 
-pub fn cmd_print(entities: &Vec<Enitiy>, args: &Vec<&str>) -> Result<(),Box<dyn std::error::Error>>{
+pub fn cmd_print(entities: &Vec<Entity>, args: &Vec<&str>) -> Result<(),Box<dyn std::error::Error>>{
     if args.len() < 2 {
         println!("Usage: {0} <ID>",args[0]);
     } else{

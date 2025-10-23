@@ -11,7 +11,7 @@ enum GenderHelper<'a>{
     Enough
 }
 
-pub fn cmd_add(entities: &mut Vec<Enitiy>) -> Result<(),Box<dyn std::error::Error>> {
+pub fn cmd_add(entities: &mut Vec<Entity>) -> Result<(),Box<dyn std::error::Error>> {
     let mut species_m = BTreeMap::<String,Species>::new();
 
     for s in Species::iter() {
@@ -82,7 +82,7 @@ pub fn cmd_add(entities: &mut Vec<Enitiy>) -> Result<(),Box<dyn std::error::Erro
         genders.push(g);
     }
 
-    entities.push(Enitiy { 
+    entities.push(Entity { 
         species: species, 
         age: age as u64,
         name: name, 

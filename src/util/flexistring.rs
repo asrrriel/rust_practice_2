@@ -6,6 +6,12 @@ pub enum Flexistring<'a> {
     Dynamic(String)
 }
 
+impl Default for Flexistring<'_> {
+    fn default() -> Self {
+        Flexistring::Dynamic(String::new())
+    }
+}
+
 impl<'a> Flexistring<'a> {
     pub fn to_string(&self) -> String{
         match self {

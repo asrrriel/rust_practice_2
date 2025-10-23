@@ -7,7 +7,7 @@ use tui::*;
 
 fn main() {
     println!("rust_practice_2 {}",option_env!("CARGO_PKG_VER").unwrap_or("dev_build"));
-    let entities : Vec<Enitiy> = Vec::new();
+    let mut entities : Vec<Entity> = Vec::new();
 
-    cli(entities);
+    cli(&mut entities);
 }

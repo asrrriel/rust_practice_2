@@ -31,7 +31,7 @@ fn cmd_help() {
     
 }
 
-pub fn cli(mut entities: Vec<Enitiy>) {
+pub fn cli(entities: &mut Vec<Entity>) {
     let mut prompt = String::from("rp2>");
 
     loop {
@@ -46,21 +46,21 @@ pub fn cli(mut entities: Vec<Enitiy>) {
         let args: Vec<&str> = cmd.split(' ').collect();
 
         let result =match args[0] {
-            "add"   => cmd_add(&mut entities),
+            "add"   => cmd_add(entities),
             "clear" => Ok(cmd_clear()),
             "count" => Ok(cmd_count(&entities, &args)),
             "exit"  => break,
             "help"  => Ok(cmd_help()),
             "list"  => Ok(cmd_list(&entities)),
-            "load"  => Ok(cmd_load(&entities, &args, &mut prompt)),
+            "load"  => cmd_load(entities, &args, &mut prompt),
             "search"=> Ok(cmd_search(&entities, &args)),
             "print" => cmd_print(&entities, &args),
-            "write" => Ok(cmd_write(&entities, &args, &mut prompt)),
+            "write" => cmd_write(&entities, &args, &mut prompt),
             _       => Ok(println!("Nonexistent command \"{0}\", type \"help\" for a list of commands",cmd.trim()))
         };
 
         match result {
-            Err(e) => println!("Command failed with error: {e}"),
+            Err(e) => println!("Error! {e}"),
             _ => {}
         }
     }

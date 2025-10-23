@@ -1,8 +1,8 @@
 use strum::IntoEnumIterator;
 
-use crate::base::entity::{Species, Enitiy};
+use crate::base::entity::{Species, Entity};
 
-fn count_species(entities: &Vec<Enitiy>,species: Species){
+fn count_species(entities: &Vec<Entity>,species: Species){
     let mut count: usize = 0; 
  
     for a in entities{
@@ -15,7 +15,7 @@ fn count_species(entities: &Vec<Enitiy>,species: Species){
 }
 
 
-pub fn cmd_count(entities: &Vec<Enitiy>,args: &Vec<&str>){
+pub fn cmd_count(entities: &Vec<Entity>,args: &Vec<&str>){
     if args.len() < 2 {
         println!("Total amout of entities registered: {0}", entities.len());
     } else {

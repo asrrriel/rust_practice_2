@@ -1,13 +1,13 @@
 use super::gender::*;
 use strum::IntoEnumIterator;
-use strum_macros::{Display,EnumIter};
+use strum_macros::{Display,EnumIter,FromRepr};
 
-#[derive(Eq, Hash, PartialEq, Clone, Display, EnumIter)]
+#[derive(Eq, Hash, PartialEq, Clone, Display, EnumIter, Default,FromRepr)]
 pub enum Species {
     Cat,
     Cattle,
     Dog,
-    Dragon,
+    #[default] Dragon,
     Elephant,
     Fox,
     Goat,
@@ -36,7 +36,8 @@ impl<'a> Species {
     }
 }
 
-pub struct Enitiy<'a> {
+#[derive(Default)]
+pub struct Entity<'a> {
     pub species: Species,
     pub age: u64,
     pub name: String,
@@ -45,7 +46,7 @@ pub struct Enitiy<'a> {
     pub position: (f32,f32)
 }
 
-impl Enitiy<'_> {
+impl Entity<'_> {
     pub fn describe(&self,id: Option<usize>) {
         println!("==={name}===",
             name = self.name,   

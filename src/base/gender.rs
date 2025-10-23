@@ -1,12 +1,12 @@
 use crate::util::flexistring::Flexistring;
 use strum::IntoEnumIterator;
-use strum_macros::{Display,EnumIter};
+use strum_macros::{Display,EnumIter,FromRepr};
 
-#[derive(PartialEq, Eq,Display,EnumIter)]
+#[derive(PartialEq, Eq,Display,EnumIter,Clone,Default,FromRepr)]
 pub enum Sex {
     Male,
     Female,
-    Intersex
+    #[default] Intersex
 }
 
 impl<'a> Sex {
@@ -21,7 +21,7 @@ impl<'a> Sex {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Default)]
 pub struct Gender<'a> {
     pub gender_name: Flexistring<'a>,
 
