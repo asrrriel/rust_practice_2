@@ -46,9 +46,18 @@ pub struct Enitiy<'a> {
 }
 
 impl Enitiy<'_> {
-    pub fn describe(&self) {
-        print!(r##"==={name}===
-Species:  {species}
+    pub fn describe(&self,id: Option<usize>) {
+        println!("==={name}===",
+            name = self.name,   
+        );
+
+        if id.is_some(){
+            println!("ID:       {id}",
+                id = id.unwrap()
+            );
+        }
+
+        print!(r##"Species:  {species}
 Age:      {age}
 Sex:      {sex}
 Gender(s):
@@ -56,7 +65,6 @@ Gender(s):
 Position: ({pos_x},{pos_y})
 
 "##,
-            name = self.name,
             species = self.species,
             age = self.age,
             sex = self.sex,

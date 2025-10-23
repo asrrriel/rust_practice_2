@@ -13,12 +13,13 @@ use cmd_count::*;
 fn cmd_help() {
     println!("Available commands:");
 
-    println!("   -add: adds an entry to the registry");
+    println!("   -add:   adds an entry to the registry");
     println!("   -clear: clears the screen");
     println!("   -count: counts all entries");
-    println!("   -exit: quits rp2");
-    println!("   -help: prints this :)");
-    println!("   -list: prints all entries");
+    println!("   -exit:  quits rp2");
+    println!("   -help:  prints this :)");
+    println!("   -list:  prints all entries");
+    println!("   -print: prints a specific entity");
 }
 
 pub fn cli(mut entities: Vec<Enitiy>) {
@@ -40,6 +41,7 @@ pub fn cli(mut entities: Vec<Enitiy>) {
             "exit"  => break,
             "help"  => cmd_help(),
             "list"  => cmd_list(&entities),
+            "print" => cmd_print(&entities, &args),
             _       => println!("Nonexistent command \"{0}\", type \"help\" for a list of commands",cmd.trim())
         }
     }
