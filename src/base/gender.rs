@@ -1,11 +1,24 @@
 use crate::util::flexistring::Flexistring;
+use strum::IntoEnumIterator;
 use strum_macros::{Display,EnumIter};
 
-#[derive(Display,EnumIter)]
+#[derive(PartialEq, Eq,Display,EnumIter)]
 pub enum Sex {
     Male,
     Female,
     Intersex
+}
+
+impl<'a> Sex {
+    pub fn from_string(value: String) -> Option<Self> {
+        for s in Sex::iter() {
+            if s.to_string().to_ascii_lowercase() == value.to_ascii_lowercase(){
+                return Some(s);
+            }
+        }
+
+        return None;
+    }
 }
 
 #[derive(Clone)]

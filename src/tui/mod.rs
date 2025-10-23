@@ -1,14 +1,17 @@
 mod primitives;
-mod small_cmds;
-mod cmd_add;
-mod cmd_count;
 
 use crate::base::entity::*;
 use primitives::*;
 
+
+mod small_cmds;
+mod cmd_add;
+mod cmd_count;
+mod cmd_search;
 use small_cmds::*;
 use cmd_add::*;
 use cmd_count::*;
+use cmd_search::*;
 
 fn cmd_help() {
     println!("Available commands:");
@@ -41,6 +44,7 @@ pub fn cli(mut entities: Vec<Enitiy>) {
             "exit"  => break,
             "help"  => cmd_help(),
             "list"  => cmd_list(&entities),
+            "search"=> cmd_search(&entities, &args),
             "print" => cmd_print(&entities, &args),
             _       => println!("Nonexistent command \"{0}\", type \"help\" for a list of commands",cmd.trim())
         }
