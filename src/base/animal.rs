@@ -1,7 +1,7 @@
 use super::gender::*;
-use std::fmt::Display;
+use strum_macros::Display;
 
-#[derive(Eq, Hash, PartialEq, Clone, Debug)]
+#[derive(Eq, Hash, PartialEq, Clone, Display)]
 pub enum Species {
     Cat,
     Cattle,
@@ -35,7 +35,7 @@ pub struct Animal<'a> {
 impl Animal<'_> {
     pub fn describe(&self) {
         print!(r##"==={name}===
-Species:  {species:?}
+Species:  {species}
 Age:      {age}
 Sex:      {sex}
 Gender(s):
