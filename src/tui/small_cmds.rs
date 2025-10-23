@@ -1,7 +1,7 @@
-use crate::base::animal::*;
+use crate::base::entity::*;
 
-pub fn cmd_list(animals: &Vec<Animal>) {
-    for a in animals {
+pub fn cmd_list(entities: &Vec<Enitiy>) {
+    for a in entities {
         a.describe();
     }
 }

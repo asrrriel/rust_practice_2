@@ -3,7 +3,7 @@ mod small_cmds;
 mod cmd_add;
 mod cmd_count;
 
-use crate::base::animal::*;
+use crate::base::entity::*;
 use primitives::*;
 
 use small_cmds::*;
@@ -21,7 +21,7 @@ fn cmd_help() {
     println!("   -list: prints all entries");
 }
 
-pub fn cli(mut animals: Vec<Animal>) {
+pub fn cli(mut entities: Vec<Enitiy>) {
     loop {
         let cmd = match input_string(&"rp2> ".to_string()) {
             Ok(v) => v,
@@ -34,13 +34,13 @@ pub fn cli(mut animals: Vec<Animal>) {
         let args: Vec<&str> = cmd.split(' ').collect();
 
         match args[0] {
-            "add"   => cmd_add(&mut animals),
+            "add"   => cmd_add(&mut entities),
             "clear" => cmd_clear(),
-            "count" => cmd_count(&animals, &args),
+            "count" => cmd_count(&entities, &args),
             "exit"  => break,
             "help"  => cmd_help(),
-            "list"  => cmd_list(&animals),
-            _   => println!("Nonexistent command \"{0}\", type \"help\" for a list of commands",cmd.trim())
+            "list"  => cmd_list(&entities),
+            _       => println!("Nonexistent command \"{0}\", type \"help\" for a list of commands",cmd.trim())
         }
     }
 }

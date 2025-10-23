@@ -1,11 +1,11 @@
 use strum::IntoEnumIterator;
 
-use crate::base::animal::{Species, Animal};
+use crate::base::entity::{Species, Enitiy};
 
-fn count_species(animals: &Vec<Animal>,species: Species){
+fn count_species(entities: &Vec<Enitiy>,species: Species){
     let mut count: usize = 0; 
  
-    for a in animals{
+    for a in entities{
         if a.species == species {
             count += 1;
         } 
@@ -15,28 +15,28 @@ fn count_species(animals: &Vec<Animal>,species: Species){
 }
 
 
-pub fn cmd_count(animals: &Vec<Animal>,args: &Vec<&str>){
+pub fn cmd_count(entities: &Vec<Enitiy>,args: &Vec<&str>){
     if args.len() < 2 {
-        println!("Total amout of animals registered: {0}", animals.len());
+        println!("Total amout of entities registered: {0}", entities.len());
     } else {
         match args[1] {
             "species" => {
                 if args.len() < 3 {
                     for s in Species::iter() {
-                        count_species(&animals, s);
+                        count_species(&entities, s);
                     }
                 } else {
                     match Species::from_string(args[2].to_string()) {
-                        Some(v) => count_species(&animals, v),
+                        Some(v) => count_species(&entities, v),
                         None => println!("Couldn't find species \"{0}\"",args[2])
                     }
                 }
             },
             "all" => {
-                println!("Total amout of animals registered: {0}", animals.len());
+                println!("Total amout of entities registered: {0}", entities.len());
 
                 for s in Species::iter() {
-                    count_species(&animals, s);
+                    count_species(&entities, s);
                 }
             }
             _ => println!("illegal subcommand \"{1}\" for {0}!",args[0],args[1])

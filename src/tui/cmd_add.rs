@@ -1,5 +1,5 @@
 use crate::base::gender::*;
-use crate::base::animal::*;
+use crate::base::entity::*;
 use super::primitives::*;
 use std::collections::HashMap;
 
@@ -9,7 +9,7 @@ enum GenderHelper<'a>{
     Enough
 }
 
-pub fn cmd_add(animals: &mut Vec<Animal>) {
+pub fn cmd_add(entities: &mut Vec<Enitiy>) {
     let mut species_hm = HashMap::<String,Species>::new();
 
     species_hm.insert("cat".to_string()      ,Species::Cat);
@@ -115,7 +115,7 @@ pub fn cmd_add(animals: &mut Vec<Animal>) {
         genders.push(g);
     }
 
-    animals.push(Animal { 
+    entities.push(Enitiy { 
         species: species, 
         age: age as u64,
         name: name, 

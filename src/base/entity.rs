@@ -36,7 +36,7 @@ impl<'a> Species {
     }
 }
 
-pub struct Animal<'a> {
+pub struct Enitiy<'a> {
     pub species: Species,
     pub age: u64,
     pub name: String,
@@ -45,7 +45,7 @@ pub struct Animal<'a> {
     pub position: (f32,f32)
 }
 
-impl Animal<'_> {
+impl Enitiy<'_> {
     pub fn describe(&self) {
         print!(r##"==={name}===
 Species:  {species}

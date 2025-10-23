@@ -1,2 +1,2 @@
 pub mod gender;
-pub mod animal;
+pub mod entity;
