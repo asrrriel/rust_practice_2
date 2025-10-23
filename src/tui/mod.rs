@@ -5,10 +5,12 @@ use primitives::*;
 
 
 mod small_cmds;
+mod file_cmds;
 mod cmd_add;
 mod cmd_count;
 mod cmd_search;
 use small_cmds::*;
+use file_cmds::*;
 use cmd_add::*;
 use cmd_count::*;
 use cmd_search::*;
@@ -16,18 +18,24 @@ use cmd_search::*;
 fn cmd_help() {
     println!("Available commands:");
 
-    println!("   -add:   adds an entry to the registry");
-    println!("   -clear: clears the screen");
-    println!("   -count: counts all entries");
-    println!("   -exit:  quits rp2");
-    println!("   -help:  prints this :)");
-    println!("   -list:  prints all entries");
-    println!("   -print: prints a specific entity");
+    println!("   -add:    adds an entry to the catalog");
+    println!("   -clear:  clears the screen");
+    println!("   -count:  counts all entries");
+    println!("   -exit:   quits rp2");
+    println!("   -help:   prints this :)");
+    println!("   -list:   prints all entries");
+    println!("   -load:   loads a catalog");
+    println!("   -search: searches the catalog");
+    println!("   -print:  prints a specific entity");
+    println!("   -write:  saves the catalog");
+    
 }
 
 pub fn cli(mut entities: Vec<Enitiy>) {
+    let mut prompt = String::from("rp2>");
+
     loop {
-        let cmd = match input_string(&"rp2> ".to_string()) {
+        let cmd = match input_string(&prompt) {
             Ok(v) => v,
             Err(e) => {
                 println!("Failed to read your command: {}",e);
@@ -44,8 +52,10 @@ pub fn cli(mut entities: Vec<Enitiy>) {
             "exit"  => break,
             "help"  => cmd_help(),
             "list"  => cmd_list(&entities),
+            "load"  => cmd_load(&entities, &args, &mut prompt),
             "search"=> cmd_search(&entities, &args),
             "print" => cmd_print(&entities, &args),
+            "write" => cmd_write(&entities, &args, &mut prompt),
             _       => println!("Nonexistent command \"{0}\", type \"help\" for a list of commands",cmd.trim())
         }
     }
