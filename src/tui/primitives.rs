@@ -8,23 +8,23 @@ pub fn input_string(prompt: &String) -> Result<String> {
 
     let mut str = String::new();
     match stdin().read_line(&mut str) {
-        Ok(_) => return Result::Ok(str.trim().to_string()),
-        Err(e) => return Err(e)
-    };
+        Ok(_) => Result::Ok(str.trim().to_string()),
+        Err(e) => Err(e)
+    }
 }
 
 pub fn input_int(prompt: &String) -> Result<i32> {
-    let str = input_string(&prompt)?;
+    let str = input_string(prompt)?;
 
-    return match str.parse() {
+    match str.parse() {
         Ok(v) => Result::Ok(v),
-        Err(e) => Err(Error::new(ErrorKind::Other, e))
+        Err(e) => Err(Error::other(e))
     }
 }
 
 pub fn input_one_of<T>(hm: &mut BTreeMap<String,T>,prompt: &String) -> Result<T> {
     loop {
-        let str = input_string(&prompt)?;
+        let str = input_string(prompt)?;
 
         match hm.contains_key(&str) {
             true => return Ok(hm.remove(&str).unwrap()),

@@ -14,7 +14,7 @@ fn parse_gender_field<'a>(gender: &str) -> Result<Gender<'a>,Box<dyn std::error:
     }
 }
 
-pub fn cmd_edit(entities: &mut Vec<Entity>,args: &Vec<&str>) -> Result<(),Box<dyn std::error::Error>> {
+pub fn cmd_edit(entities: &mut [Entity],args: &[&str]) -> Result<(),Box<dyn std::error::Error>> {
     if args.len() < 3 {
         println!("Usage: {0} <id> age|gender",args[0]);
         return Ok(())
@@ -23,7 +23,7 @@ pub fn cmd_edit(entities: &mut Vec<Entity>,args: &Vec<&str>) -> Result<(),Box<dy
     let id: usize = args[1].to_string().parse()?;
 
     if entities.len() < id {
-        return Err(Box::new(io::Error::new(io::ErrorKind::Other, 
+        return Err(Box::new(io::Error::other(
             format!("Nonexistent entity with ID {0}",id)
         ))); 
     }
@@ -65,7 +65,7 @@ pub fn cmd_edit(entities: &mut Vec<Entity>,args: &Vec<&str>) -> Result<(),Box<dy
                         let gender = parse_gender_field(args[5])?;
 
                         if e.genders.len() < index {
-                            return Err(Box::new(io::Error::new(io::ErrorKind::Other, 
+                            return Err(Box::new(io::Error::other( 
                                 format!("Entity {0} doesnt't have a gender wiht index {1}",id,index)
                             ))); 
                         }
@@ -94,5 +94,5 @@ pub fn cmd_edit(entities: &mut Vec<Entity>,args: &Vec<&str>) -> Result<(),Box<dy
         } 
     }
 
-    return Result::Ok(())
+    Result::Ok(())
 }

@@ -24,15 +24,9 @@ pub enum Species {
     Zebra,
 }
 
-impl<'a> Species {
+impl Species {
     pub fn from_string(value: String) -> Option<Self> {
-        for s in Species::iter() {
-            if s.to_string().to_ascii_lowercase() == value.to_ascii_lowercase(){
-                return Some(s);
-            }
-        }
-
-        return None;
+        Species::iter().find(|s|{ s.to_string().eq_ignore_ascii_case(&value)})
     }
 }
 
@@ -52,9 +46,9 @@ impl Entity<'_> {
             name = self.name,   
         );
 
-        if id.is_some(){
+        if let Some(v) = id{
             println!("ID:       {id}",
-                id = id.unwrap()
+                id = v
             );
         }
 

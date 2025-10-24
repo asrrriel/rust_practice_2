@@ -45,7 +45,7 @@ pub fn serialize_database(database: &Vec<Entity>) -> Vec<u8>{
     let hash = crc32fast::hash(vec.as_slice()).to_le_bytes();
     vec[4..8].copy_from_slice(&hash);
 
-    return vec;
+    vec
 }
 
 fn get_bytes<const N: usize>(data: &[u8],from: usize) -> Result<[u8;N],Box<dyn std::error::Error>> {
@@ -96,11 +96,11 @@ pub fn deserialize_database<'a>(data: &mut [u8]) -> Result<Vec<Entity<'a>>,Box<d
         ent.species = Species::from_repr(
                  u8::from_le_bytes(get_bytes(data,cur_byte)?).into()
             ).ok_or(
-                io::Error::new(io::ErrorKind::Other,"Failed to deserialize species")
+                io::Error::other("Failed to deserialize species")
             )?;
         cur_byte += 1;
 
-        ent.age = u64::from_le_bytes(get_bytes(data,cur_byte)?.try_into()?);
+        ent.age = u64::from_le_bytes(get_bytes(data,cur_byte)?);
         cur_byte += 8;
 
         let name_len = u32::from_le_bytes(get_bytes(data,cur_byte)?);
@@ -112,7 +112,7 @@ pub fn deserialize_database<'a>(data: &mut [u8]) -> Result<Vec<Entity<'a>>,Box<d
         ent.sex = Sex::from_repr(
                  u8::from_le_bytes(get_bytes(data,cur_byte)?).into()
             ).ok_or(
-                io::Error::new(io::ErrorKind::Other,"Failed to deserialize sex")
+                io::Error::other("Failed to deserialize sex")
             )?;
         cur_byte += 1;
 
@@ -168,5 +168,5 @@ pub fn deserialize_database<'a>(data: &mut [u8]) -> Result<Vec<Entity<'a>>,Box<d
     }
 
 
-    return Ok(entities);
+    Ok(entities)
 }

@@ -93,5 +93,5 @@ pub fn cmd_add(entities: &mut Vec<Entity>) -> Result<(),Box<dyn std::error::Erro
 
     println!("Created entity with ID {0}.",entities.len() - 1);
 
-    return Ok(())
+    Ok(())
 }

@@ -6,7 +6,7 @@ pub fn cmd_list(entities: &Vec<Entity>) {
     }
 }
 
-pub fn cmd_print(entities: &Vec<Entity>, args: &Vec<&str>) -> Result<(),Box<dyn std::error::Error>>{
+pub fn cmd_print(entities: &Vec<Entity>, args: &[&str]) -> Result<(),Box<dyn std::error::Error>>{
     if args.len() < 2 {
         println!("Usage: {0} <ID>",args[0]);
     } else{
@@ -18,7 +18,7 @@ pub fn cmd_print(entities: &Vec<Entity>, args: &Vec<&str>) -> Result<(),Box<dyn 
         }
     }
 
-    return Ok(())
+    Ok(())
 }
 
 

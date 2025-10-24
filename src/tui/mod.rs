@@ -33,18 +33,18 @@ fn cmd_help() {
     println!("   -write:  saves the catalog");
 }
 
-pub fn split_args<'a>(cmd: &'a String) -> Vec<&'a str> {
+pub fn split_args(cmd: &str) -> Vec<&str> {
     let cmd_qouted: Vec<&str> = cmd.split('"')
             .map(|v| { v.trim()})
             .collect();
 
-    return cmd_qouted.iter().enumerate().flat_map(|(i,v)| {
+    cmd_qouted.iter().enumerate().flat_map(|(i,v)| {
         if i % 2 == 0 {
-            if *v == "" { vec![] } else {v.split(' ').collect::<Vec<_>>()}
+            if v.is_empty() { vec![] } else {v.split(' ').collect::<Vec<_>>()}
         } else {
             vec![*v]
         }
-    }).collect();
+    }).collect()
 }
 
 pub fn cli(entities: &mut Vec<Entity>) {
@@ -64,21 +64,20 @@ pub fn cli(entities: &mut Vec<Entity>) {
         let result =match args[0] {
             "add"   => cmd_add(entities),
             "clear" => Ok(cmd_clear()),
-            "count" => Ok(cmd_count(&entities, &args)),
+            "count" => Ok(cmd_count(entities, &args)),
             "edit"  => cmd_edit(entities,&args),
             "exit"  => break,
             "help"  => Ok(cmd_help()),
-            "list"  => Ok(cmd_list(&entities)),
+            "list"  => Ok(cmd_list(entities)),
             "load"  => cmd_load(entities, &args, &mut prompt),
-            "search"=> Ok(cmd_search(&entities, &args)),
-            "print" => cmd_print(&entities, &args),
-            "write" => cmd_write(&entities, &args, &mut prompt),
+            "search"=> Ok(cmd_search(entities, &args)),
+            "print" => cmd_print(entities, &args),
+            "write" => cmd_write(entities, &args, &mut prompt),
             _       => Ok(println!("Nonexistent command \"{0}\", type \"help\" for a list of commands",cmd.trim()))
         };
 
-        match result {
-            Err(e) => println!("Error! {e}"),
-            _ => {}
+        if let Err(e) = result { 
+            println!("Error! {e}")
         }
     }
 }

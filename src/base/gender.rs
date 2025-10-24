@@ -9,15 +9,9 @@ pub enum Sex {
     #[default] Intersex
 }
 
-impl<'a> Sex {
+impl Sex {
     pub fn from_string(value: String) -> Option<Self> {
-        for s in Sex::iter() {
-            if s.to_string().to_ascii_lowercase() == value.to_ascii_lowercase(){
-                return Some(s);
-            }
-        }
-
-        return None;
+       Sex::iter().find(|v| v.to_string().eq_ignore_ascii_case(&value))
     }
 }
 
@@ -63,7 +57,7 @@ impl<'a> Gender<'a> {
         match t {
             PronounType::Subject    => self.subj_pronoun.to_string(),
             PronounType::Object     => self.obj_pronoun.to_string(),
-            PronounType::Reflexive  => format!("{0}{1}",self.obj_pronoun.to_string(),
+            PronounType::Reflexive  => format!("{0}{1}",self.obj_pronoun,
                                                     if self.pluralized {"sleves"} else { "self" })
         }
     }
@@ -82,5 +76,5 @@ pub fn display_genders<'a>(genders: &Vec<Gender<'a>>) -> String{
         ).as_str();
     }
 
-    return str
+    str
 }
