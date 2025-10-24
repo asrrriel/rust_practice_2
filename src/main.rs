@@ -1,3 +1,4 @@
+#![feature(vec_try_remove)]
 mod base;
 mod tui;
 mod util;

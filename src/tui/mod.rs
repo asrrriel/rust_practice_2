@@ -28,6 +28,7 @@ fn cmd_help() {
     println!("   -help:   prints this :)");
     println!("   -list:   prints all entries");
     println!("   -load:   loads a catalog");
+    println!("   -remove: removes an entity");
     println!("   -search: searches the catalog");
     println!("   -print:  prints a specific entity");
     println!("   -write:  saves the catalog");
@@ -70,6 +71,7 @@ pub fn cli(entities: &mut Vec<Entity>) {
             "help"  => Ok(cmd_help()),
             "list"  => Ok(cmd_list(entities)),
             "load"  => cmd_load(entities, &args, &mut prompt),
+            "remove"=> cmd_remove(entities, &args),
             "search"=> Ok(cmd_search(entities, &args)),
             "print" => cmd_print(entities, &args),
             "write" => cmd_write(entities, &args, &mut prompt),
