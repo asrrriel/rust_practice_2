@@ -2,7 +2,7 @@ use super::gender::*;
 use strum::IntoEnumIterator;
 use strum_macros::{Display,EnumIter,FromRepr};
 
-#[derive(Eq, Hash, PartialEq, Clone, Display, EnumIter, Default,FromRepr)]
+#[derive(Eq, Hash, PartialEq, Clone, Display, EnumIter, Default,FromRepr,Debug)]
 pub enum Species {
     Cat,
     Cattle,
@@ -36,7 +36,7 @@ impl<'a> Species {
     }
 }
 
-#[derive(Default)]
+#[derive(Default,Debug)]
 pub struct Entity<'a> {
     pub species: Species,
     pub age: u64,

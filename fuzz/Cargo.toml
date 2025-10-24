@@ -1,0 +1,19 @@
+[package]
+name = "rust_practice_2-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+rust_practice_2 = { path = ".." }
+
+[[bin]]
+name = "deserializer"
+path = "fuzz_targets/deserializer.rs"
+test = false
+doc = false
+bench = false
