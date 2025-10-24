@@ -31,11 +31,19 @@ pub fn cmd_edit(entities: &mut Vec<Entity>,args: &Vec<&str>) -> Result<(),Box<dy
     let e = &mut entities[id];
 
     match args[2] {
+        "name" => {
+            if args.len() < 4 {
+                println!("Usage: {0} <id> name \"<new_name>\"",args[0]);
+            } else {
+                let name = args[3].to_string();
+                e.name = name;
+            }
+        },
         "age" => {
             if args.len() < 4 {
                 println!("Usage: {0} <id> age <new_age>",args[0]);
             } else {
-                let age: u64 = args[3].to_string().parse()?;
+                let age: u64 = args[3].parse()?;
                 e.age = age;
             }
         },
@@ -53,7 +61,7 @@ pub fn cmd_edit(entities: &mut Vec<Entity>,args: &Vec<&str>) -> Result<(),Box<dy
                     if args.len() < 6 {
                         println!("Usage: {0} <id> gender edit <gender_index> <new_gender>",args[0]);
                     } else {
-                        let index: usize = args[4].to_string().parse()?;
+                        let index: usize = args[4].parse()?;
                         let gender = parse_gender_field(args[5])?;
 
                         if e.genders.len() < index {
@@ -63,6 +71,15 @@ pub fn cmd_edit(entities: &mut Vec<Entity>,args: &Vec<&str>) -> Result<(),Box<dy
                         }
 
                         e.genders[index] = gender;
+                    }
+                },
+                "remove" => {
+                    if args.len() < 6 {
+                        println!("Usage: {0} <id> gender remove <gender_index>",args[0]);
+                    } else {
+                        let index: usize = args[4].parse()?;
+
+                        e.genders.remove(index);
                     }
                 }
                 _ => {

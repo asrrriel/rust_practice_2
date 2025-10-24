@@ -33,6 +33,20 @@ fn cmd_help() {
     println!("   -write:  saves the catalog");
 }
 
+pub fn split_args<'a>(cmd: &'a String) -> Vec<&'a str> {
+    let cmd_qouted: Vec<&str> = cmd.split('"')
+            .map(|v| { v.trim()})
+            .collect();
+
+    return cmd_qouted.iter().enumerate().flat_map(|(i,v)| {
+        if i % 2 == 0 {
+            if *v == "" { vec![] } else {v.split(' ').collect::<Vec<_>>()}
+        } else {
+            vec![*v]
+        }
+    }).collect();
+}
+
 pub fn cli(entities: &mut Vec<Entity>) {
     let mut prompt = String::from("rp2>");
 
@@ -45,7 +59,7 @@ pub fn cli(entities: &mut Vec<Entity>) {
             }
         };
 
-        let args: Vec<&str> = cmd.split(' ').collect();
+        let args: Vec<&str> = split_args(&cmd);
 
         let result =match args[0] {
             "add"   => cmd_add(entities),
