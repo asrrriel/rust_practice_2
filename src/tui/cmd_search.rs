@@ -6,6 +6,8 @@ pub fn cmd_search(entities: &Vec<Entity>, args: &[&str]) {
         return;
     }
 
+    let mut found = false;
+
     match args[1] {
         "name" => {
             if args.len() < 3 {
@@ -16,7 +18,7 @@ pub fn cmd_search(entities: &Vec<Entity>, args: &[&str]) {
             for (i,e) in entities.iter().enumerate() {
                 if e.name.starts_with(args[2]) {
                     e.describe(Some(i));
-                    return;
+                    found = true;
                 }
             }
         },
@@ -37,7 +39,7 @@ pub fn cmd_search(entities: &Vec<Entity>, args: &[&str]) {
             for (i,e) in entities.iter().enumerate() {
                 if e.age == age {
                     e.describe(Some(i));
-                    return;
+                    found = true;
                 }
             }
         },
@@ -59,7 +61,7 @@ pub fn cmd_search(entities: &Vec<Entity>, args: &[&str]) {
             for (i,e) in entities.iter().enumerate() {
                 if e.sex == sex {
                     e.describe(Some(i));
-                    return;
+                    found = true;
                 }
             }
         },
@@ -73,7 +75,7 @@ pub fn cmd_search(entities: &Vec<Entity>, args: &[&str]) {
                 for g in &e.genders {
                     if g.gender_name.to_string().to_ascii_lowercase().starts_with(args[2].to_ascii_lowercase().as_str()) {
                         e.describe(Some(i));
-                        return;
+                        found = true;
                     }
                 }
             }
@@ -118,7 +120,7 @@ pub fn cmd_search(entities: &Vec<Entity>, args: &[&str]) {
             for (i,e) in entities.iter().enumerate() {
                 if e.position == (x,y) {
                     e.describe(Some(i));
-                    return;
+                    found = true;
                 }
             }
         },
@@ -127,5 +129,7 @@ pub fn cmd_search(entities: &Vec<Entity>, args: &[&str]) {
             return;
         }
     }
-    println!("No match found!");
+    if !found {
+        println!("No match found!");
+    }
 }
