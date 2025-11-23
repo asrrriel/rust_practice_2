@@ -74,7 +74,7 @@ pub fn deserialize_database<'a>(data: &mut [u8]) -> Result<Vec<Entity<'a>>,Box<d
     data[4..8].fill(0);
 
     if crc32 != crc32fast::hash(data) {
-        return Result::Err(Box::new(io::Error::new(io::ErrorKind::InvalidData,"CC32 mismatch")));
+        return Result::Err(Box::new(io::Error::new(io::ErrorKind::InvalidData,"CRC32 mismatch")));
     }
 
     let num_entities = u32::from_le_bytes(get_bytes(data,8)?);
@@ -166,7 +166,6 @@ pub fn deserialize_database<'a>(data: &mut [u8]) -> Result<Vec<Entity<'a>>,Box<d
 
         entities.push(ent);
     }
-
 
     Ok(entities)
 }
